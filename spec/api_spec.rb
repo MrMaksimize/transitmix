@@ -7,6 +7,21 @@ describe Transitmix::API do
     Transitmix::API
   end
 
+  describe 'PUT /api/lines/:id' do
+    let(:line) { create(:line) }
+    let(:params) { attributes_for(:line) }
+
+    it 'returns 200 OK status' do
+      put "/api/lines/#{line.id}", params
+      expect(last_response.status).to eq 200
+    end
+
+    it 'returns the record' do
+      put "/api/lines/#{line.id}", params
+      expect(last_response.body).to eq Line.find(id: line.id).to_json
+    end
+  end
+
   describe 'GET /api/lines/:id' do
     let(:line) { create(:line) }
 
