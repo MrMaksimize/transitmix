@@ -35,7 +35,7 @@ module Transitmix
         end
 
         get '/:id' do
-          Line.where(id: params[:id]).first
+          Line.find(id: params[:id])
         end
 
         params do
@@ -67,7 +67,7 @@ module Transitmix
         end
 
         put '/:id' do
-          line = Line.where(id: params[:id]).first
+          line = Line.find(id: params[:id])
           line.update(line_params)
           line
         end
