@@ -10,7 +10,7 @@ describe Transitmix::API do
   describe 'GET /api/lines/:id' do
     let(:line) { create(:line) }
 
-    it 'is successful' do
+    it 'returns 200 OK status' do
       get "/api/lines/#{line.id}"
       expect(last_response.status).to eq 200
     end
@@ -24,7 +24,7 @@ describe Transitmix::API do
   describe 'POST /api/lines' do
     let(:params) { attributes_for(:line) }
 
-    it 'is successful' do
+    it 'returns 201 CREATED status' do
       post '/api/lines', params
       expect(last_response.status).to eq 201
     end
@@ -35,7 +35,7 @@ describe Transitmix::API do
   end
 
   describe 'GET /api/lines' do
-    it 'is sucessful' do
+    it 'returns 200 OK status' do
       get '/api/lines'
       expect(last_response.status).to eq 200
     end
