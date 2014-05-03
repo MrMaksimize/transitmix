@@ -6,7 +6,6 @@ module MigrationHelper
   Dotenv.load
 
   DATABASE_URL = ENV.fetch('DATABASE_URL')
-  MIGRATION_TEMPLATE = File.read('db/_migration_template')
 
   def database
     @database ||= Sequel.connect(DATABASE_URL)
@@ -60,11 +59,28 @@ module MigrationHelper
     migrate_db(previous_version)
     self
   end
+
+  def console
+    require './db/config'
+    require 'irb'
+    ARGV.clear
+    IRB.start
+  end
+
+  MIGRATION_TEMPLATE = <<-TEMPLATE
+Sequel.migration do
+  up do
+  end
+
+  down do
+  end
+end
+TEMPLATE
 end
 
-namespace :db do
-  include MigrationHelper
+include MigrationHelper
 
+namespace :db do
   task :reset do
     drop_db.create_db.migrate_db
   end
@@ -86,10 +102,7 @@ namespace :db do
   end
 
   task :console do
-    require './db/config'
-    require 'irb'
-    ARGV.clear
-    IRB.start
+    console
   end
 end
 
