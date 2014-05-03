@@ -64,12 +64,18 @@ module Transitmix
 
         params do
           requires :id, type: String
+          optional :name, type: String
+          optional :description, type: String
+          optional :coordinates, type: Array
+          optional :start_time, type: String
+          optional :end_time, type: String
+          optional :frequency, type: Integer
+          optional :speed, type: Integer
+          optional :color, type: String
         end
 
         put '/:id' do
-          line = Line.find(id: params[:id])
-          line.update(line_params)
-          line
+          Line.find(id: params[:id]).update(line_params)
         end
       end # resource :lines
     end # namespace :api
