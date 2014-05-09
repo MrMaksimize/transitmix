@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 
-ruby '2.1.1'
+if ENV['CI']
+  ruby RUBY_VERSION
+else
+  ruby '2.1.1'
+end
 
 gem 'dotenv'
 gem 'grape'
@@ -10,6 +14,7 @@ gem 'sequel'
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 gem 'sinatra'
 gem 'uglifier'
+gem 'rake'
 
 group :test do
   gem 'database_cleaner'
